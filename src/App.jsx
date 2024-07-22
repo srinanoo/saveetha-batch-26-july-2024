@@ -1,6 +1,7 @@
+import axios from 'axios';
 import './App.css'
 import ChildComp, { Child1Comp } from './components/ChildComp'
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 // function App() {
 //   return (
@@ -163,33 +164,78 @@ import { useRef, useState } from 'react';
 //   )
 // }
 
+// function App() {
+//   const [task, setTask] = useState("");
+//   const [taskLists, setTaskLists] = useState([]);
+
+//   const handleAddTask = () => {
+//     console.log(task);
+//     setTaskLists([...taskLists, task])
+//   }
+
+//   const handleDeleteTask = (event) => {
+//     // console.log(event.target.id);
+//     let temp = taskLists.filter((v, i) => i !== parseInt(event.target.id));
+//     // console.log(temp);
+//     setTaskLists(temp);
+//     console.log(taskLists);
+//   }
+
+//   return (
+//     <>
+//       <h1>Todo List</h1>
+//       <input type="text" onChange={(e) => setTask(e.target.value)} placeholder='Enter Task Name:' /><button onClick={handleAddTask}>Add Task</button>
+
+//       <br />
+//       {
+//         taskLists.length > 0 && taskLists.map((v, i) => {
+//           return (
+//             <div key={i}>
+//               {v} <button id={i} onClick={handleDeleteTask}>X</button>
+//             </div>
+//           )
+//         })
+//       }
+//     </>
+//   )
+// }
+
 function App() {
-  const [task, setTask] = useState("");
-  const [taskLists, setTaskLists] = useState([]);
+  // const [count, setCount] = useState(0);
+  // const [name, setName] = useState("Dinesh");
+  const [country, setCountry] = useState("India");
+  const [universities, setUniversities] = useState([]);
 
-  const handleAddTask = () => {
-    console.log(task);
-    setTaskLists([...taskLists, task])
+  const fetchData = () => {
+    axios.get('http://universities.hipolabs.com/search?country='+country)
+      .then((response) => {
+        console.log(response);
+        setUniversities(response.data);
+      })
   }
 
-  const handleDeleteTask = (event) => {
-    console.log(event.target.id);
-    let temp = taskLists.filter((v, i) => i !== parseInt(event.target.id));
-    console.log(temp);
-    setTaskLists(temp);
-  }
+  // useEffect(() => {
+  //   setCount(count + 1);
+  // }, [name]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
-      <h1>Todo List</h1>
-      <input type="text" onChange={(e) => setTask(e.target.value)} placeholder='Enter Task Name:' /><button onClick={handleAddTask}>Add Task</button>
+      {/* <h1>useEffect</h1> */}
 
-      <br />
+      {/* {count}<br />
+      {name}<br />
+      <button onClick={() => setName("ReactJs")}>Change Name</button> */}
+
+      <h1>Universities - {country}</h1>
       {
-        taskLists.length > 0 && taskLists.map((v, i) => {
+        universities.length > 0 && universities.map((v, i) => {
           return (
             <div key={i}>
-              {v} <button id={i} onClick={handleDeleteTask}>X</button>
+              <p>Name: {v.name}</p>
             </div>
           )
         })
