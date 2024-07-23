@@ -1,0 +1,12 @@
+Thinking in React
+    - Components
+    - Axios
+    - Routes
+    - Controllers
+
+    - Pages
+        - Routes
+    - Components
+        - static
+        - dynamic / reuseable
+            - Axios

@@ -2,6 +2,12 @@ import axios from 'axios';
 import './App.css'
 import ChildComp, { Child1Comp } from './components/ChildComp'
 import { useEffect, useRef, useState } from 'react';
+import HomePage from './pages/Home/HomePage';
+import AboutPage from './pages/About/AboutPage';
+import ContactPage from './pages/Contact/ContactPage';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HeaderComp from './components/Header/HeaderComp';
+import CEOPage from './pages/About/CEOPage';
 
 // function App() {
 //   return (
@@ -200,46 +206,62 @@ import { useEffect, useRef, useState } from 'react';
 //   )
 // }
 
+// function App() {
+//   // const [count, setCount] = useState(0);
+//   // const [name, setName] = useState("Dinesh");
+//   const [country, setCountry] = useState("India");
+//   const [universities, setUniversities] = useState([]);
+
+//   const fetchData = () => {
+//     axios.get('http://universities.hipolabs.com/search?country='+country)
+//       .then((response) => {
+//         console.log(response);
+//         setUniversities(response.data);
+//       })
+//   }
+
+//   // useEffect(() => {
+//   //   setCount(count + 1);
+//   // }, [name]);
+
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
+
+//   return (
+//     <>
+//       {/* <h1>useEffect</h1> */}
+
+//       {/* {count}<br />
+//       {name}<br />
+//       <button onClick={() => setName("ReactJs")}>Change Name</button> */}
+
+//       <h1>Universities - {country}</h1>
+//       {
+//         universities.length > 0 && universities.map((v, i) => {
+//           return (
+//             <div key={i}>
+//               <p>Name: {v.name}</p>
+//             </div>
+//           )
+//         })
+//       }
+//     </>
+//   )
+// }
+
 function App() {
-  // const [count, setCount] = useState(0);
-  // const [name, setName] = useState("Dinesh");
-  const [country, setCountry] = useState("India");
-  const [universities, setUniversities] = useState([]);
-
-  const fetchData = () => {
-    axios.get('http://universities.hipolabs.com/search?country='+country)
-      .then((response) => {
-        console.log(response);
-        setUniversities(response.data);
-      })
-  }
-
-  // useEffect(() => {
-  //   setCount(count + 1);
-  // }, [name]);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <>
-      {/* <h1>useEffect</h1> */}
-
-      {/* {count}<br />
-      {name}<br />
-      <button onClick={() => setName("ReactJs")}>Change Name</button> */}
-
-      <h1>Universities - {country}</h1>
-      {
-        universities.length > 0 && universities.map((v, i) => {
-          return (
-            <div key={i}>
-              <p>Name: {v.name}</p>
-            </div>
-          )
-        })
-      }
+      <BrowserRouter>
+      <HeaderComp />
+        <Routes>
+          <Route path="/" element={<HomePage />}></Route>
+          <Route path='/about' element={<AboutPage />}></Route>
+          <Route path='/about/ceo' element={<CEOPage />}></Route>
+          <Route path="/contact" element={<ContactPage />}></Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
